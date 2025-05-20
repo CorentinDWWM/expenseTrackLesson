@@ -30,10 +30,8 @@ app.use(generalLimiter);
 
 app.use(routes);
 
-app.get("/*", (req, res) => {
-  res.sendFile(
-    path.join(__DIRNAME, "client_modifPassword", "dist", "index.html")
-  );
+app.get(/(.*)/, (req, res) => {
+  res.sendFile(path.join(__DIRNAME, "client", "dist", "index.html"));
 });
 
 mongoose
