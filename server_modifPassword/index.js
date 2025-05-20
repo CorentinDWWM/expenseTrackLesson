@@ -24,7 +24,7 @@ app.use(
 app.use(express.static(path.join(__DIRNAME, "client_modifPassword/dist")));
 
 const routes = require("./routes");
-const { generalLimiter } = require("./middlewares/rateLimitMiddleware");
+// const { generalLimiter } = require("./middlewares/rateLimitMiddleware");
 
 // app.use(generalLimiter);
 
