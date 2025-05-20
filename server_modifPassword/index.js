@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(config.mongoDb.uri)
+  .connect(process.env.MONGO_URL)
   .then(() => {
     app.listen(port, "0.0.0.0", () => {
       console.log(`Connected to db & listening on port : ${port}`);
