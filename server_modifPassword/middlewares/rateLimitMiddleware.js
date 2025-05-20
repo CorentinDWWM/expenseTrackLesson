@@ -7,6 +7,7 @@ const generalLimiter = rateLimit({
     res.status(options.statusCode).json({
       status: options.statusCode,
       message: "Trop de requêtes !",
+      validate: { xForwardedForHeader: false },
     });
   },
 });
@@ -21,6 +22,7 @@ const loginLimiter = rateLimit({
       status: options.statusCode,
       message:
         "Trop de tentavies de connexion. Réessayez dans quelques minutes",
+      validate: { xForwardedForHeader: false },
     });
   },
 });
