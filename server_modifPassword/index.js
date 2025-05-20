@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const port = process.env.PORT || 3000;
 const cors = require("cors");
 const config = require("./database/config");
 const cookieParser = require("cookie-parser");
@@ -22,6 +21,8 @@ app.use(
   })
 );
 
+app.use(express.static(path.join(__DIRNAME, "client_modifPassword/dist")));
+
 const routes = require("./routes");
 const { generalLimiter } = require("./middlewares/rateLimitMiddleware");
 
@@ -29,7 +30,6 @@ app.use(generalLimiter);
 
 app.use(routes);
 
-app.use(express.static(path.join(__DIRNAME, "client_modifPassword/dist")));
 app.get("*", (req, res) => {
   res.sendFile(
     path.join(__DIRNAME, "client_modifPassword", "dist", "index.html")
@@ -37,12 +37,12 @@ app.get("*", (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(config.mongoDb.uri)
   .then(() => {
-    app.listen(port, "0.0.0.0", () => {
-      console.log(`Connected to db & listening on port : ${port}`);
-    });
+    console.log("Connexion Mongo DB OK");
   })
   .catch((err) => console.log(err));
+
+app.listen(3000);
 
 // localhost:3000
