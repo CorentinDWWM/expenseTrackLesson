@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const port = process.env.PORT || 3000;
 const cors = require("cors");
 const config = require("./database/config");
 const cookieParser = require("cookie-parser");
@@ -38,10 +39,10 @@ app.get("/", (req, res) => {
 mongoose
   .connect(config.mongoDb.uri)
   .then(() => {
-    console.log("Connexion Mongo DB OK");
+    app.listen(port, "0.0.0.0", () => {
+      console.log(`Connected to db & listening on port : ${port}`);
+    });
   })
   .catch((err) => console.log(err));
-
-app.listen(3000);
 
 // localhost:3000
